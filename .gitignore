@@ -2,3 +2,5 @@
 *.swp
 .idea
 atlassian-ide-plugin.xml
+.ruby-gemset
+.ruby-version
