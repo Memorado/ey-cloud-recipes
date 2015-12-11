@@ -14,12 +14,16 @@ default[:sidekiq] = {
   :workers => 1,
   
   # Concurrency
-  :concurrency => 25,
+  :concurrency => 30,
   
   # Queues
-  :queues => {
+  queues: {
     # :queue_name => priority
-    :default => 1
+    default: 5,
+    slow: 2,
+    ahoy: 1,
+    mailers: 1
+    
   },
   
   # Verbose
