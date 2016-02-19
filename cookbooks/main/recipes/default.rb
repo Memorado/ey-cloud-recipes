@@ -125,6 +125,11 @@ include_recipe "redis"
 
 #enable Extension modules for a given Postgresql database
 if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
+  db_name = if %w(production).include?(node[:environment][:name])
+    'mnemosyne-dedicated'
+  else
+    node[:applications].keys.first
+  end
   # Extensions that support Postgres >= 9.0
   # postgresql9_autoexplain "dbname"
   # postgresql9_btree_gin "dbname"
@@ -137,7 +142,7 @@ if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
   # postgresql9_dict_xsyn "dbname"
   # postgresql9_earthdistance "dbname"
   # postgresql9_fuzzystrmatch "dbname"
-  postgresql9_hstore node[:applications].keys.first
+  postgresql9_hstore db_name
   # postgresql9_intarray "dbname"
   # postgresql9_isn "dbname"
   # postgresql9_lo "dbname"
@@ -157,7 +162,7 @@ if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
   # postgresql9_tablefunc "dbname"
   # postgresql9_test_parser "dbname"
   # postgresql9_unaccent "dbname"
-  # postgresql9_uuid_ossp "dbname"
+  postgresql9_uuid_ossp db_name
 
 
   # 9.1 and 9.2 Extensions
@@ -166,7 +171,7 @@ if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
 
   # 9.2 Extensions
   # Note: pg_stat_statements requires a server restart to complete installation
-  # postgresql9_pg_stat_statements "dbname"
+  postgresql9_pg_stat_statements db_name
 
   # Admin-Level Contribs
   # postgresql9_pg_buffercache "postgres"
