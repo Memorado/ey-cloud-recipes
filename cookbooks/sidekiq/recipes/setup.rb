@@ -33,7 +33,7 @@ if util_or_app_server?(node[:sidekiq][:utility_name])
         :app_name => app_name, 
         :workers => node[:sidekiq][:workers],
         :rails_env => node[:environment][:framework_env],
-        :memory_limit => 400 # MB
+        :memory_limit => 800 # MB
       })
       notifies :run, resources(:execute => "restart-sidekiq-for-#{app_name}")
     end
