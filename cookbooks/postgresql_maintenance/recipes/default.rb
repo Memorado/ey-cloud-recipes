@@ -1,6 +1,6 @@
 
 # Sets a default schedule of Midnight system time Sunday for a vacuum
-if @node[:instance_role][/^db_master/]
+if %w(db_master).include?(@node[:instance_role])
   cron "manual_vacuumdb" do
     minute  '0'
     hour    '0'
