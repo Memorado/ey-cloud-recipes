@@ -9,23 +9,24 @@ default[:sidekiq] = {
   # only be installed on to a utility instance that matches
   # the name
   :utility_name => 'utility_1',
-  
+
   # Number of workers (not threads)
   :workers => 1,
-  
+
   # Concurrency
   :concurrency => 30,
-  
+
   # Queues
   queues: {
     # :queue_name => priority
     default: 5,
     slow: 2,
     ahoy: 1,
-    mailers: 1
-    
+    mailers: 1,
+    podio: 2
+
   },
-  
+
   # Verbose
   :verbose => false
 }
