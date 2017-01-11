@@ -123,7 +123,6 @@ include_recipe "redis"
 # uncomment to include the Postgres Maintenance recipe
 include_recipe "postgresql_maintenance"
 
-include_recipe "whenever"
 #enable Extension modules for a given Postgresql database
 if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
   db_name = if %w(production).include?(node[:environment][:name])
@@ -181,3 +180,4 @@ end
 
 #uncomment to include the motd customization related to the environment
 #include_recipe "env_motd"
+
