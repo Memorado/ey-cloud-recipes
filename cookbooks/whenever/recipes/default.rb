@@ -6,13 +6,17 @@ ey_cloud_report "whenever" do
   message "starting whenever recipe"
 end
 
-if ["util"].include?(node[:instance_role])
+# Set your application name here
+appname = "jobz_backend"
+
+if ['solo', 'util'].include?(node[:instance_role])
+
+  # be sure to replace "app_name" with the name of your application.
   local_user = node[:users].first
-
   execute "whenever" do
+    cwd "/data/#{appname}/current"
     user local_user[:username]
-    command "cd #{config.release_path}; bundle exec whenever --set environment=#{config.framework_env} --update-crontab '#{config.app}_#{config.framework_env}'"
-
+    command "whenever --update-crontab '#{appname}_#{node[:environment][:framework_env]}'"
     action :run
   end
 
