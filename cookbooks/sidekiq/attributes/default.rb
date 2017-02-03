@@ -23,8 +23,8 @@ default[:sidekiq] = {
     slow: 2,
     ahoy: 1,
     mailers: 1,
-    podio: 2
-
+    podio: 2,
+    marketing: 2
   },
 
   # Verbose
