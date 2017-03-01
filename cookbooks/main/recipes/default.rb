@@ -1,8 +1,17 @@
+# uncomment to use a custom database.yml configuration
+# include_recipe "database_yml_custom"
+
+# uncomment to use the db_client_lib cookbook -- requires additional configuration
+# include_recipe "db_client_libs"
+
 #execute "testing" do
 #  command %Q{
 #    echo "i ran at #{Time.now}" >> /root/cheftime
 #  }
 #end
+
+#uncomment to install aws-cli tools
+#include_recipe "aws_cli"
 
 # uncomment to deny access to /log, /config, and .git directories as well as any .yml files
 # include_recipe "deny-directories"
@@ -20,7 +29,7 @@
 # include_recipe "ban"
 
 # uncomment to use the sidekiq recipe. See cookbooks/sidekiq/readme.md for documentation.
-include_recipe "sidekiq"
+# include_recipe "sidekiq"
 
 #uncomment to turn on memcached
 # include_recipe "memcached"
@@ -64,13 +73,13 @@ include_recipe "sidekiq"
 # include_recipe "resque"
 
 #uncomment to run redis.yml recipe
-include_recipe "redis-yml"
+# include_recipe "redis-yml"
 
 #uncomment to run the resque-scheduler recipe
 # include_recipe "resque-scheduler"
 
 #uncomment to run the redis recipe
-include_recipe "redis"
+#include_recipe "redis"
 
 #uncomment to run the env-yaml recipe
 #include_recipe "env-yaml"
@@ -121,17 +130,10 @@ include_recipe "redis"
 #include_recipe "magento"
 
 # uncomment to include the Postgres Maintenance recipe
-include_recipe "postgresql_maintenance"
-
-include_recipe "whenever"
+#include_recipe "postgresql_maintenance"
 
 #enable Extension modules for a given Postgresql database
-if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
-  db_name = if %w(production).include?(node[:environment][:name])
-    'mnemosyne-dedicated'
-  else
-    node[:applications].keys.first
-  end
+# if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
   # Extensions that support Postgres >= 9.0
   # postgresql9_autoexplain "dbname"
   # postgresql9_btree_gin "dbname"
@@ -144,7 +146,7 @@ if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
   # postgresql9_dict_xsyn "dbname"
   # postgresql9_earthdistance "dbname"
   # postgresql9_fuzzystrmatch "dbname"
-  postgresql9_hstore db_name
+  # postgresql9_hstore "dbname"
   # postgresql9_intarray "dbname"
   # postgresql9_isn "dbname"
   # postgresql9_lo "dbname"
@@ -164,7 +166,7 @@ if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
   # postgresql9_tablefunc "dbname"
   # postgresql9_test_parser "dbname"
   # postgresql9_unaccent "dbname"
-  postgresql9_uuid_ossp db_name
+  # postgresql9_uuid_ossp "dbname"
 
 
   # 9.1 and 9.2 Extensions
@@ -173,12 +175,26 @@ if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
 
   # 9.2 Extensions
   # Note: pg_stat_statements requires a server restart to complete installation
-  postgresql9_pg_stat_statements db_name
+  # postgresql9_pg_stat_statements "dbname"
 
   # Admin-Level Contribs
   # postgresql9_pg_buffercache "postgres"
   # postgresql9_pg_freespacemap "postgres"
-end
+# end
 
 #uncomment to include the motd customization related to the environment
 #include_recipe "env_motd"
+
+#include_recipe "db_restore"
+
+#uncomment to install PHP 5.5.x
+#include_recipe "php55"
+
+#uncomment to install PHP 5.6.x
+#include_recipe "php56"
+
+#unncomment to install clamav
+#include_recipe "clamav"
+
+#uncomment to include the classiclink recipe
+#include_recipe "classiclink"
