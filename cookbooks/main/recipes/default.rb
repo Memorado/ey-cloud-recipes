@@ -29,7 +29,7 @@
 # include_recipe "ban"
 
 # uncomment to use the sidekiq recipe. See cookbooks/sidekiq/readme.md for documentation.
-# include_recipe "sidekiq"
+include_recipe "sidekiq"
 
 #uncomment to turn on memcached
 # include_recipe "memcached"
@@ -73,13 +73,13 @@
 # include_recipe "resque"
 
 #uncomment to run redis.yml recipe
-# include_recipe "redis-yml"
+include_recipe "redis-yml"
 
 #uncomment to run the resque-scheduler recipe
 # include_recipe "resque-scheduler"
 
 #uncomment to run the redis recipe
-#include_recipe "redis"
+include_recipe "redis"
 
 #uncomment to run the env-yaml recipe
 #include_recipe "env-yaml"
@@ -130,10 +130,15 @@
 #include_recipe "magento"
 
 # uncomment to include the Postgres Maintenance recipe
-#include_recipe "postgresql_maintenance"
+include_recipe "postgresql_maintenance"
 
 #enable Extension modules for a given Postgresql database
-# if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
+if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
+  db_name = if %w(production).include?(node[:environment][:name])
+    'mnemosyne-dedicated'
+  else
+    node[:applications].keys.first
+  end
   # Extensions that support Postgres >= 9.0
   # postgresql9_autoexplain "dbname"
   # postgresql9_btree_gin "dbname"
@@ -146,7 +151,7 @@
   # postgresql9_dict_xsyn "dbname"
   # postgresql9_earthdistance "dbname"
   # postgresql9_fuzzystrmatch "dbname"
-  # postgresql9_hstore "dbname"
+  postgresql9_hstore dbname
   # postgresql9_intarray "dbname"
   # postgresql9_isn "dbname"
   # postgresql9_lo "dbname"
@@ -166,7 +171,7 @@
   # postgresql9_tablefunc "dbname"
   # postgresql9_test_parser "dbname"
   # postgresql9_unaccent "dbname"
-  # postgresql9_uuid_ossp "dbname"
+  postgresql9_uuid_ossp dbname
 
 
   # 9.1 and 9.2 Extensions
@@ -175,12 +180,12 @@
 
   # 9.2 Extensions
   # Note: pg_stat_statements requires a server restart to complete installation
-  # postgresql9_pg_stat_statements "dbname"
+  postgresql9_pg_stat_statements dbname
 
   # Admin-Level Contribs
   # postgresql9_pg_buffercache "postgres"
   # postgresql9_pg_freespacemap "postgres"
-# end
+end
 
 #uncomment to include the motd customization related to the environment
 #include_recipe "env_motd"
@@ -198,3 +203,5 @@
 
 #uncomment to include the classiclink recipe
 #include_recipe "classiclink"
+
+include_recipe "whenever"
