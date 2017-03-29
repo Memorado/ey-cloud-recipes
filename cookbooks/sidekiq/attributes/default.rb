@@ -24,7 +24,8 @@ default[:sidekiq] = {
     ahoy: 1,
     mailers: 1,
     podio: 2,
-    marketing: 2
+    marketing: 2,
+    pdf_conversion: 3
   },
 
   # Verbose
