@@ -7,7 +7,7 @@ ey_cloud_report "whenever" do
 end
 
 # Set your application name here
-appname = "memorado"
+appname = "jobz_backend"
 
 if ['solo', 'util'].include?(node[:instance_role])
 
