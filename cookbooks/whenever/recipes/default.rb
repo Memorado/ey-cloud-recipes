@@ -10,7 +10,7 @@ end
 appname = "jobz_backend"
 
 if ['solo', 'util'].include?(node[:instance_role])
-  if instance_named?('utility_1')
+  if ['utility_1'].include?(node[:instance_name])
 
     # be sure to replace "app_name" with the name of your application.
     local_user = node[:users].first
