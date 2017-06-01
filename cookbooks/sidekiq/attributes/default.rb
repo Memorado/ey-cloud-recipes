@@ -25,6 +25,7 @@ default[:sidekiq] = {
     mailers: 1,
     podio: 2,
     marketing: 2,
+    ebay_conversations: 2,
     pdf_conversion: 3
   },
 
