@@ -26,6 +26,7 @@ default[:sidekiq] = {
     podio: 2,
     marketing: 2,
     ebay_conversations: 2,
+    facebook: 2,
     pdf_conversion: 3
   },
 
